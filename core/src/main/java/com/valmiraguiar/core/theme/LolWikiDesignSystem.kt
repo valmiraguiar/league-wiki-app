@@ -1,4 +1,4 @@
-package com.valmiraguiar.leaguewiki.theme
+package com.valmiraguiar.core.theme
 
 import androidx.compose.runtime.staticCompositionLocalOf
 import androidx.compose.ui.graphics.Color

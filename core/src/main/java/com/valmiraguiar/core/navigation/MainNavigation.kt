@@ -1,10 +1,9 @@
-package com.valmiraguiar.leaguewiki.navigation
+package com.valmiraguiar.core.navigation
 
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.rememberNavController
-import com.valmiraguiar.core.navigation.SubGraphDestination
 
 @Composable
 fun MainNavigation(modifier: Modifier = Modifier, defaultNavigator: DefaultNavigator) {

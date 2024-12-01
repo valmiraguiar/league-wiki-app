@@ -6,6 +6,7 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.navigation
 import com.valmiraguiar.core.navigation.Destination
 import com.valmiraguiar.core.navigation.SubGraphDestination
+import com.valmiraguiar.core.navigation.features.ChampionDetailFeatureNavigation
 import com.valmiraguiar.detail.presentation.detail.ChampionDetailScreen
 
 class ChampionDetailFeatureNavigationImpl : ChampionDetailFeatureNavigation {

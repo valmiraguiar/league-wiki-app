@@ -5,7 +5,18 @@ import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.material3.ripple
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
-
+import com.valmiraguiar.core.theme.AppColorScheme
+import com.valmiraguiar.core.theme.Black100
+import com.valmiraguiar.core.theme.Blue100
+import com.valmiraguiar.core.theme.Blue300
+import com.valmiraguiar.core.theme.LocalAppColorScheme
+import com.valmiraguiar.core.theme.LocalAppShape
+import com.valmiraguiar.core.theme.LocalAppSize
+import com.valmiraguiar.core.theme.LocalAppTypography
+import com.valmiraguiar.core.theme.White100
+import com.valmiraguiar.core.theme.shape
+import com.valmiraguiar.core.theme.size
+import com.valmiraguiar.core.theme.typography
 
 private val lightColorScheme = AppColorScheme(
     background = White100,
@@ -36,20 +47,5 @@ fun LoLWikiTheme(
         LocalIndication provides rippleIndication,
         content = content
     )
-}
-
-
-object LolWikiTheme {
-    val colorScheme: AppColorScheme
-        @Composable get() = LocalAppColorScheme.current
-
-    val typography: AppTypography
-        @Composable get() = LocalAppTypography.current
-
-    val shape: AppShape
-        @Composable get() = LocalAppShape.current
-
-    val size: AppSize
-        @Composable get() = LocalAppSize.current
 }
 

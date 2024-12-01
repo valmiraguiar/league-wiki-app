@@ -1,4 +1,4 @@
-package com.valmiraguiar.detail.navigation
+package com.valmiraguiar.core.navigation.features
 
 import com.valmiraguiar.core.navigation.FeatureNavigation
 

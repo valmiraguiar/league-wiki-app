@@ -1,4 +1,4 @@
-package com.valmiraguiar.leaguewiki.theme
+package com.valmiraguiar.core.theme
 
 import androidx.compose.ui.unit.dp
 

@@ -8,8 +8,8 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
 import androidx.compose.ui.Modifier
-import com.valmiraguiar.leaguewiki.navigation.DefaultNavigator
-import com.valmiraguiar.leaguewiki.navigation.MainNavigation
+import com.valmiraguiar.core.navigation.DefaultNavigator
+import com.valmiraguiar.core.navigation.MainNavigation
 import com.valmiraguiar.leaguewiki.theme.LoLWikiTheme
 import org.koin.android.ext.android.inject
 
