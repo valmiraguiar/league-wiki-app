@@ -17,6 +17,8 @@ lifecycleViewModelCompose = "2.8.7"
 okHttp = "4.12.0"
 retrofit = "2.11.0"
 navigationRuntimeKtx = "2.8.4"
+koinVersion = "4.0.0"
+kotlinxSerializationJson = "1.5.0"
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
@@ -45,7 +47,9 @@ okhttp = { module = "com.squareup.okhttp3:okhttp", version.ref = "okHttp" }
 okhttp-interceptor = { module = "com.squareup.okhttp3:logging-interceptor", version.ref = "okHttp" }
 retrofit = { module = "com.squareup.retrofit2:retrofit", version.ref = "retrofit" }
 retrofit-gson-converter = { module = "com.squareup.retrofit2:converter-gson", version.ref = "retrofit" }
+kotlinx-serialization-json = { module = "org.jetbrains.kotlinx:kotlinx-serialization-json", version.ref = "kotlinxSerializationJson" }
 androidx-navigation-runtime-ktx = { group = "androidx.navigation", name = "navigation-runtime-ktx", version.ref = "navigationRuntimeKtx" }
+koin = { module = "io.insert-koin:koin-android", version.ref = "koinVersion" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }

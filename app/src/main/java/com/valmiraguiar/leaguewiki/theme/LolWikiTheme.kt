@@ -1,8 +1,8 @@
-package com.valmiraguiar.leaguewiki.ui.theme
+package com.valmiraguiar.leaguewiki.theme
 
 import androidx.compose.foundation.LocalIndication
 import androidx.compose.foundation.isSystemInDarkTheme
-import androidx.compose.material.ripple.rememberRipple
+import androidx.compose.material3.ripple
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
 
@@ -25,7 +25,7 @@ fun LoLWikiTheme(
 //        darkTheme -> lightColorScheme //TODO - Create dark theme
         else -> lightColorScheme
     }
-    val rippleIndication = rememberRipple()
+    val rippleIndication = ripple()
 
 
     CompositionLocalProvider(
@@ -37,7 +37,6 @@ fun LoLWikiTheme(
         content = content
     )
 }
-
 
 
 object LolWikiTheme {

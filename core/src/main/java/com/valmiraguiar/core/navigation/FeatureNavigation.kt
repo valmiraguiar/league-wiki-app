@@ -3,6 +3,6 @@ package com.valmiraguiar.core.navigation
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.NavHostController
 
-interface Feature {
+interface FeatureNavigation {
     fun registerGraph(navHostController: NavHostController, navGraphBuilder: NavGraphBuilder)
 }

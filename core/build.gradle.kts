@@ -1,6 +1,9 @@
 plugins {
     alias(libs.plugins.android.library)
     alias(libs.plugins.kotlin.android)
+    alias(libs.plugins.kotlin.compose)
+    alias(libs.plugins.kotlinx.serialization)
+    id("kotlin-parcelize")
 }
 
 android {
@@ -41,4 +44,13 @@ dependencies {
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
+
+    // DI - Koin
+    implementation(libs.koin)
+
+    //navigation
+    implementation(libs.androidx.navigation.compose)
+
+    // Serialization
+    implementation(libs.kotlinx.serialization.json)
 }

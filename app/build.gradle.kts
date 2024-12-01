@@ -2,9 +2,8 @@ plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.kotlin.compose)
-
-    id("kotlin-parcelize")
     alias(libs.plugins.kotlinx.serialization)
+    id("kotlin-parcelize")
 }
 
 android {
@@ -43,6 +42,9 @@ android {
 }
 
 dependencies {
+    implementation(project(":core"))
+    implementation(project(":home"))
+    implementation(project(":detail"))
 
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)
@@ -77,4 +79,7 @@ dependencies {
     //Retrofit
     implementation(libs.retrofit)
     implementation(libs.retrofit.gson.converter)
+
+    // DI - Koin
+    implementation(libs.koin)
 }
