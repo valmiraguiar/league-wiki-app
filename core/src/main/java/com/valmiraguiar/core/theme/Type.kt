@@ -24,7 +24,7 @@ val typography = AppTypography(
     titleLarge = TextStyle(
         fontFamily = LoraFamily,
         fontWeight = FontWeight.SemiBold,
-        fontSize = 24.sp
+        fontSize = 32.sp
     ),
     titleNormal = TextStyle(
         fontFamily = RobotoFamily,

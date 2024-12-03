@@ -1,5 +1,6 @@
 package com.valmiraguiar.core.theme
 
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.runtime.staticCompositionLocalOf
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.RectangleShape
@@ -27,7 +28,8 @@ data class AppTypography(
 
 data class AppShape(
     val container: Shape,
-    val button: Shape
+    val button: Shape,
+    val roundedCorner: Shape
 )
 
 data class AppSize(
@@ -62,7 +64,8 @@ val LocalAppTypography = staticCompositionLocalOf {
 val LocalAppShape = staticCompositionLocalOf {
     AppShape(
         container = RectangleShape,
-        button = RectangleShape
+        button = RectangleShape,
+        roundedCorner = RectangleShape
     )
 }
 
