@@ -38,12 +38,12 @@ val typography = AppTypography(
     labelLarge = TextStyle(
         fontFamily = RobotoFamily,
         fontWeight = FontWeight.Medium,
-        fontSize = 16.sp
+        fontSize = 44.sp
     ),
     labelNormal = TextStyle(
         fontFamily = RobotoFamily,
         fontWeight = FontWeight.Normal,
-        fontSize = 14.sp
+        fontSize = 24.sp
     ),
     labelSmall = TextStyle(
         fontFamily = RobotoFamily,

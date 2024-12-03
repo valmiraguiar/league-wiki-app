@@ -24,7 +24,7 @@ import com.valmiraguiar.core.theme.LeagueWikiTheme
 import com.valmiraguiar.home.R
 
 @Composable
-fun ChampionItem(modifier: Modifier = Modifier, championName: String) {
+fun ChampionItem(modifier: Modifier = Modifier, championName: String, onClickAction: () -> Unit) {
     val currentContext = LocalContext.current
 
     Card(
@@ -35,6 +35,7 @@ fun ChampionItem(modifier: Modifier = Modifier, championName: String) {
         elevation = CardDefaults.elevatedCardElevation(6.dp),
         onClick = {
             Toast.makeText(currentContext, "Item -> Graves", Toast.LENGTH_SHORT).show()
+            onClickAction()
         }
     ) {
         Box(modifier = Modifier.fillMaxWidth()) {

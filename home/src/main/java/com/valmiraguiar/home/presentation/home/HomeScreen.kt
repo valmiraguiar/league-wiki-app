@@ -49,7 +49,7 @@ fun HomeScreen(modifier: Modifier = Modifier, onClickNavigation: () -> Unit) {
             contentPadding = PaddingValues(horizontal = 16.dp, vertical = 8.dp)
         ) {
             items(championList) { champion ->
-                ChampionItem(modifier = modifier.padding(vertical = 8.dp), championName = champion)
+                ChampionItem(modifier = modifier.padding(vertical = 8.dp), championName = champion, onClickNavigation)
             }
         }
     }
