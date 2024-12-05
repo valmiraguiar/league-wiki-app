@@ -22,7 +22,7 @@ android {
 
     buildTypes {
         debug {
-            buildConfigField("String", "BASE_URL_API", "\"https://localhost/\"")
+            buildConfigField("String", "BASE_URL_API", "\"https://ddragon.leagueoflegends.com/cdn/\"")
         }
         release {
             buildConfigField("String", "BASE_URL_API", "\"https://localhost/\"")
