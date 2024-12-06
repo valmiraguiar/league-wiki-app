@@ -32,7 +32,7 @@ val typography = AppTypography(
         fontSize = 20.sp
     ),
     body = TextStyle(
-        fontFamily = RobotoFamily,
+        fontFamily = LoraFamily,
         fontSize = 16.sp
     ),
     labelLarge = TextStyle(
