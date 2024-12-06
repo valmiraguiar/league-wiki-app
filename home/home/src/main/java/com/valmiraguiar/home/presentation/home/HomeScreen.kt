@@ -11,6 +11,7 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.valmiraguiar.core.theme.LeagueWikiTheme
@@ -18,7 +19,11 @@ import com.valmiraguiar.home.presentation.home.composables.ChampionItem
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun HomeScreen(modifier: Modifier = Modifier, onClickNavigation: () -> Unit) {
+fun HomeScreen(
+    modifier: Modifier = Modifier,
+    viewModel: HomeViewModel,
+    onClickNavigation: () -> Unit
+) {
     val championList = listOf(
         "Graves",
         "Ahri",
@@ -33,6 +38,8 @@ fun HomeScreen(modifier: Modifier = Modifier, onClickNavigation: () -> Unit) {
         "Aatrox",
         "Khazix"
     )
+    val championListState = viewModel.championListState.collectAsState()
+
 
     Scaffold(
         topBar = {
@@ -43,13 +50,29 @@ fun HomeScreen(modifier: Modifier = Modifier, onClickNavigation: () -> Unit) {
         },
         modifier = Modifier.background(LeagueWikiTheme.colorScheme.background)
     ) { innerPadding ->
-        LazyColumn(
-            modifier = Modifier.padding(innerPadding),
-            userScrollEnabled = true,
-            contentPadding = PaddingValues(horizontal = 16.dp, vertical = 8.dp)
-        ) {
-            items(championList) { champion ->
-                ChampionItem(modifier = modifier.padding(vertical = 8.dp), championName = champion, onClickNavigation)
+        when (championListState.value) {
+            ChampionListState.Loading -> {
+                Text("CARREGANDO")
+            }
+
+            is ChampionListState.Error -> {
+                Text("ERROR")
+            }
+
+            is ChampionListState.Success -> {
+                LazyColumn(
+                    modifier = Modifier.padding(innerPadding),
+                    userScrollEnabled = true,
+                    contentPadding = PaddingValues(horizontal = 16.dp, vertical = 8.dp)
+                ) {
+                    items(championList) { champion ->
+                        ChampionItem(
+                            modifier = modifier.padding(vertical = 8.dp),
+                            championName = champion,
+                            onClickNavigation
+                        )
+                    }
+                }
             }
         }
     }
