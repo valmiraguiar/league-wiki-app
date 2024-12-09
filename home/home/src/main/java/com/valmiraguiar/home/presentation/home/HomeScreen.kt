@@ -1,10 +1,14 @@
 package com.valmiraguiar.home.presentation.home
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
@@ -12,9 +16,14 @@ import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.StrokeCap
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import com.valmiraguiar.core.theme.LeagueWikiTheme
+import com.valmiraguiar.home.BuildConfig
+import com.valmiraguiar.home.R
 import com.valmiraguiar.home.presentation.home.composables.ChampionItem
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -24,27 +33,18 @@ fun HomeScreen(
     viewModel: HomeViewModel,
     onClickNavigation: () -> Unit
 ) {
-//    val championList = listOf(
-//        "Graves",
-//        "Ahri",
-//        "Aatrox",
-//        "Khazix",
-//        "Graves",
-//        "Ahri",
-//        "Aatrox",
-//        "Khazix",
-//        "Graves",
-//        "Ahri",
-//        "Aatrox",
-//        "Khazix"
-//    )
     val championListState = viewModel.championListState.collectAsState()
 
 
     Scaffold(
         topBar = {
             TopAppBar(
-                title = { Text("League Wiki", color = LeagueWikiTheme.colorScheme.onSecondary) },
+                title = {
+                    Text(
+                        text = stringResource(R.string.app_title),
+                        color = LeagueWikiTheme.colorScheme.onSecondary
+                    )
+                },
                 colors = TopAppBarDefaults.topAppBarColors(LeagueWikiTheme.colorScheme.secondary)
             )
         },
@@ -52,7 +52,19 @@ fun HomeScreen(
     ) { innerPadding ->
         when (championListState.value) {
             ChampionListState.Loading -> {
-                Text("CARREGANDO")
+                Box(
+                    modifier = Modifier
+                        .padding(innerPadding)
+                        .fillMaxSize(),
+                    contentAlignment = Alignment.Center
+                ) {
+                    CircularProgressIndicator(
+                        modifier = Modifier.size(24.dp),
+                        color = LeagueWikiTheme.colorScheme.primary,
+                        strokeWidth = 2.dp,
+                        strokeCap = StrokeCap.Round
+                    )
+                }
             }
 
             is ChampionListState.Error -> {
@@ -69,6 +81,7 @@ fun HomeScreen(
                         ChampionItem(
                             modifier = modifier.padding(vertical = 8.dp),
                             championName = champion.name,
+                            imgUrl = "${BuildConfig.BASE_SPLASH_URL}/${champion.id}_0.jpg",
                             onClickNavigation
                         )
                     }

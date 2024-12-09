@@ -25,6 +25,7 @@ android {
                 "\"https://ddragon.leagueoflegends.com/cdn/\""
             )
             buildConfigField("String", "API_CURRENT_PATCH", "\"14.17.1\"")
+            buildConfigField("String", "BASE_SPLASH_URL", "\"https://ddragon.leagueoflegends.com/cdn/img/champion/splash\"")
         }
         release {
             buildConfigField("String", "BASE_URL_API", "\"https://localhost/\"")
@@ -82,4 +83,8 @@ dependencies {
     //Retrofit
     implementation(libs.retrofit)
     implementation(libs.retrofit.gson.converter)
+
+    // Coil
+    implementation(libs.coil.compose)
+    implementation(libs.coil.network)
 }
