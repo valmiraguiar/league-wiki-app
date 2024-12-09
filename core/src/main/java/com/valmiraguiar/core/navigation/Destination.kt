@@ -7,5 +7,5 @@ sealed class Destination {
     data object Home : Destination()
 
     @Serializable
-    data object ChampionDetail : Destination()
+    data class ChampionDetail(val championId: String) : Destination()
 }

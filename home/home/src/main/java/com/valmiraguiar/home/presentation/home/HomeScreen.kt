@@ -31,7 +31,7 @@ import com.valmiraguiar.home.presentation.home.composables.ChampionItem
 fun HomeScreen(
     modifier: Modifier = Modifier,
     viewModel: HomeViewModel,
-    onClickNavigation: () -> Unit
+    onClickNavigation: (championId: String) -> Unit
 ) {
     val championListState = viewModel.championListState.collectAsState()
 
@@ -81,8 +81,9 @@ fun HomeScreen(
                         ChampionItem(
                             modifier = modifier.padding(vertical = 8.dp),
                             championName = champion.name,
+                            championId = champion.id,
                             imgUrl = "${BuildConfig.BASE_SPLASH_URL}/${champion.id}_0.jpg",
-                            onClickNavigation
+                            onClickAction = onClickNavigation
                         )
                     }
                 }

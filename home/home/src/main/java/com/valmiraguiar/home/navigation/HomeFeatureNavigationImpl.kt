@@ -18,8 +18,8 @@ class HomeFeatureNavigationImpl : HomeFeatureNavigation {
             composable<Destination.Home> {
                 val vm = koinViewModel<HomeViewModel>()
 
-                HomeScreen(viewModel = vm) {
-                    navHostController.navigate(Destination.ChampionDetail)
+                HomeScreen(viewModel = vm) { championId ->
+                    navHostController.navigate(Destination.ChampionDetail(championId))
                 }
             }
         }

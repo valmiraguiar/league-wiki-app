@@ -26,8 +26,9 @@ import com.valmiraguiar.core.theme.LeagueWikiTheme
 fun ChampionItem(
     modifier: Modifier = Modifier,
     championName: String,
+    championId: String,
     imgUrl: String,
-    onClickAction: () -> Unit
+    onClickAction: (championId: String) -> Unit
 ) {
     Card(
         modifier = modifier
@@ -35,7 +36,7 @@ fun ChampionItem(
             .height(240.dp),
         shape = LeagueWikiTheme.shape.roundedCorner,
         elevation = CardDefaults.elevatedCardElevation(6.dp),
-        onClick = { onClickAction() }
+        onClick = { onClickAction(championId) }
     ) {
         Box(modifier = Modifier.fillMaxWidth()) {
             SubcomposeAsyncImage(

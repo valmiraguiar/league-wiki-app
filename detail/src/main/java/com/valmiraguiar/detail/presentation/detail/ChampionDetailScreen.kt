@@ -30,6 +30,7 @@ import com.valmiraguiar.detail.R
 @Composable
 fun ChampionDetailScreen(
     modifier: Modifier = Modifier,
+    championId: String,
     onClickNavigation: () -> Unit
 ) {
     Scaffold(
@@ -71,7 +72,7 @@ fun ChampionDetailScreen(
                     .padding(16.dp)
             ) {
                 Text(
-                    text = "Graves",
+                    text = championId,
                     color = LeagueWikiTheme.colorScheme.onBackground,
                     style = LeagueWikiTheme.typography.labelLarge,
                 )
