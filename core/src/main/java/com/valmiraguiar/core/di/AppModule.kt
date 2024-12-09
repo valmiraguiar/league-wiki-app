@@ -1,5 +1,7 @@
 package com.valmiraguiar.core.di
 
+import com.valmiraguiar.core.api.HttpConfig
+import com.valmiraguiar.core.api.HttpConfigImpl
 import com.valmiraguiar.core.api.OkHttpBuilder
 import com.valmiraguiar.core.api.RetrofitBuilder
 import com.valmiraguiar.core.infrastructure.SafeApiCaller
@@ -12,9 +14,11 @@ val coreModules = module {
         DefaultNavigator(get(), get())
     }
 
+    single<HttpConfig> { HttpConfigImpl(retrofit = get()) }
+
     single { OkHttpBuilder().build() }
 
-    single { RetrofitBuilder(get()).build(get()) }
+    single { RetrofitBuilder(get()).build(client = get()) }
 
-    single { SafeApiCaller(Dispatchers.IO) }
+    single { SafeApiCaller(backgroundDispatcher = Dispatchers.IO) }
 }

@@ -21,7 +21,11 @@ class HomeViewModel(
         MutableStateFlow(ChampionListState.Loading)
     val championListState: StateFlow<ChampionListState> get() = _championListState
 
-    fun loadChampions() {
+    init {
+        loadChampions()
+    }
+
+    private fun loadChampions() {
         viewModelScope.launch {
             withContext(coroutineDispatcher) {
                 championsBusiness.getChampionList()

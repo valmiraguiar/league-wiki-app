@@ -5,5 +5,5 @@ import kotlinx.parcelize.Parcelize
 
 @Parcelize
 data class ChampionListResponse(
-    val data: List<ChampionResponse>
+    val data: Map<String, ChampionResponse>
 ) : Parcelable

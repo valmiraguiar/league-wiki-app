@@ -18,7 +18,16 @@ android {
     }
 
     buildTypes {
+        debug {
+            buildConfigField(
+                "String",
+                "BASE_URL_API",
+                "\"https://ddragon.leagueoflegends.com/cdn/\""
+            )
+            buildConfigField("String", "API_CURRENT_PATCH", "\"14.17.1\"")
+        }
         release {
+            buildConfigField("String", "BASE_URL_API", "\"https://localhost/\"")
             isMinifyEnabled = false
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"),
@@ -35,6 +44,7 @@ android {
     }
     buildFeatures {
         compose = true
+        buildConfig = true
     }
 }
 

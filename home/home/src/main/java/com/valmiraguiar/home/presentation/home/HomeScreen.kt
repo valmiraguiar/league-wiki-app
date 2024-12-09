@@ -24,20 +24,20 @@ fun HomeScreen(
     viewModel: HomeViewModel,
     onClickNavigation: () -> Unit
 ) {
-    val championList = listOf(
-        "Graves",
-        "Ahri",
-        "Aatrox",
-        "Khazix",
-        "Graves",
-        "Ahri",
-        "Aatrox",
-        "Khazix",
-        "Graves",
-        "Ahri",
-        "Aatrox",
-        "Khazix"
-    )
+//    val championList = listOf(
+//        "Graves",
+//        "Ahri",
+//        "Aatrox",
+//        "Khazix",
+//        "Graves",
+//        "Ahri",
+//        "Aatrox",
+//        "Khazix",
+//        "Graves",
+//        "Ahri",
+//        "Aatrox",
+//        "Khazix"
+//    )
     val championListState = viewModel.championListState.collectAsState()
 
 
@@ -65,10 +65,10 @@ fun HomeScreen(
                     userScrollEnabled = true,
                     contentPadding = PaddingValues(horizontal = 16.dp, vertical = 8.dp)
                 ) {
-                    items(championList) { champion ->
+                    items((championListState.value as ChampionListState.Success).championList) { champion ->
                         ChampionItem(
                             modifier = modifier.padding(vertical = 8.dp),
-                            championName = champion,
+                            championName = champion.name,
                             onClickNavigation
                         )
                     }

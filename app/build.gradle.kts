@@ -22,7 +22,12 @@ android {
 
     buildTypes {
         debug {
-            buildConfigField("String", "BASE_URL_API", "\"https://ddragon.leagueoflegends.com/cdn/\"")
+            buildConfigField(
+                "String",
+                "BASE_URL_API",
+                "\"https://ddragon.leagueoflegends.com/cdn/\""
+            )
+            buildConfigField("String", "API_CURRENT_PATCH", "\"14.17.1\"")
         }
         release {
             buildConfigField("String", "BASE_URL_API", "\"https://localhost/\"")
@@ -87,4 +92,5 @@ dependencies {
 
     // DI - Koin
     implementation(libs.koin)
+    implementation(libs.koin.core)
 }
