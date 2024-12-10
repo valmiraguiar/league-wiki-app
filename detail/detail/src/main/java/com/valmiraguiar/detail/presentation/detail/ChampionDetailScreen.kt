@@ -21,14 +21,19 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.StrokeCap
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
+import coil3.compose.SubcomposeAsyncImage
 import com.valmiraguiar.core.theme.LeagueWikiTheme
+import com.valmiraguiar.detail.BuildConfig
 import com.valmiraguiar.detail.R
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -36,8 +41,15 @@ import com.valmiraguiar.detail.R
 fun ChampionDetailScreen(
     modifier: Modifier = Modifier,
     championId: String,
+    viewModel: ChampionDetailViewModel,
     onClickNavigation: () -> Unit
 ) {
+    val detailChampionState = viewModel.detailChampionState.collectAsState()
+
+    LaunchedEffect(detailChampionState) {
+        viewModel.loadChampionDetail(championId)
+    }
+
     Scaffold(
         topBar = {
             TopAppBar(
@@ -58,54 +70,76 @@ fun ChampionDetailScreen(
         },
         modifier = modifier.background(LeagueWikiTheme.colorScheme.background)
     ) { innerPadding ->
-        Column(
-            modifier = Modifier
-                .padding(innerPadding)
-                .fillMaxSize()
-                .verticalScroll(rememberScrollState())
-        ) {
-            Image(
-                modifier = Modifier.fillMaxWidth(),
-                painter = painterResource(R.drawable.graves),
-                contentDescription = "Image",
-                contentScale = ContentScale.FillBounds
-            )
-            /*
-            SubcomposeAsyncImage(
-                model = championId,
-                contentDescription = stringResource(R.string.champion_image_description),
-                contentScale = ContentScale.FillBounds,
-                loading = { OnLoadingImage() },
-                modifier = Modifier.fillMaxWidth()
-            )
-             */
 
-            Column(
-                modifier = Modifier
-                    .fillMaxSize()
-                    .padding(16.dp)
-            ) {
-                Text(
-                    text = championId,
-                    color = LeagueWikiTheme.colorScheme.onBackground,
-                    style = LeagueWikiTheme.typography.labelLarge,
-                )
+        when (detailChampionState.value) {
+            is DetailChampionState.Error -> {
+                Text("ERROR")
+            }
 
-                Text(
-                    text = "o Foragido",
-                    color = LeagueWikiTheme.colorScheme.onBackground,
-                    style = LeagueWikiTheme.typography.labelNormal,
-                )
+            DetailChampionState.Loading -> {
+                Box(
+                    modifier = Modifier
+                        .padding(innerPadding)
+                        .fillMaxSize(),
+                    contentAlignment = Alignment.Center
+                ) {
+                    CircularProgressIndicator(
+                        modifier = Modifier.size(24.dp),
+                        color = LeagueWikiTheme.colorScheme.primary,
+                        strokeWidth = 2.dp,
+                        strokeCap = StrokeCap.Round
+                    )
+                }
+            }
 
-                Text(
-                    text = "Malcolm Graves, mercenário, apostador e bandido de renome, é um homem procurado em cada uma das cidades e impérios que visitou. Apesar do seu temperamento explosivo, ele é dono de uma noção rigorosa de honra entre criminosos, normalmente aplicada com o fogo da sua espingarda, Destino. Nos últimos anos, ele reconciliou uma parceria problemática com Twisted Fate e, juntos, eles prosperaram mais uma vez no tumulto do submundo criminoso de Águas de Sentina.Malcolm Graves, mercenário, apostador e bandido de renome, é um homem procurado em cada uma das cidades e impérios que visitou. Apesar do seu temperamento explosivo, ele é dono de uma noção rigorosa de honra entre criminosos, normalmente aplicada com o fogo da sua espingarda, Destino. Nos últimos anos, ele reconciliou uma parceria problemática com Twisted Fate e, juntos, eles prosperaram mais uma vez no tumulto do submundo criminoso de Águas de Sentina.",
-                    color = LeagueWikiTheme.colorScheme.onBackground,
-                    style = LeagueWikiTheme.typography.body,
-                    modifier = Modifier.padding(top = 32.dp),
-                    textAlign = TextAlign.Justify
-                )
+            is DetailChampionState.Success -> {
+                val championDetailResponse =
+                    (detailChampionState.value as DetailChampionState.Success).championDetail
+
+                Column(
+                    modifier = Modifier
+                        .padding(innerPadding)
+                        .fillMaxSize()
+                        .verticalScroll(rememberScrollState())
+                ) {
+                    SubcomposeAsyncImage(
+                        model = "${BuildConfig.BASE_SPLASH_URL}/${championDetailResponse.id}_0.jpg",
+                        contentDescription = stringResource(R.string.champion_image_description),
+                        contentScale = ContentScale.FillBounds,
+                        loading = { OnLoadingImage() },
+                        modifier = Modifier.fillMaxWidth()
+                    )
+
+                    Column(
+                        modifier = Modifier
+                            .fillMaxSize()
+                            .padding(16.dp)
+                    ) {
+                        Text(
+                            text = championDetailResponse.name,
+                            color = LeagueWikiTheme.colorScheme.onBackground,
+                            style = LeagueWikiTheme.typography.labelLarge,
+                        )
+
+                        Text(
+                            text = championDetailResponse.title,
+                            color = LeagueWikiTheme.colorScheme.onBackground,
+                            style = LeagueWikiTheme.typography.labelNormal,
+                        )
+
+                        Text(
+                            text = championDetailResponse.lore,
+                            color = LeagueWikiTheme.colorScheme.onBackground,
+                            style = LeagueWikiTheme.typography.body,
+                            modifier = Modifier.padding(top = 32.dp),
+                            textAlign = TextAlign.Justify
+                        )
+                    }
+                }
             }
         }
+
+
     }
 }
 

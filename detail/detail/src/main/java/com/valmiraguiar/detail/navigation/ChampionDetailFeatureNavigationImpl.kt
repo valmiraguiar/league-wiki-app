@@ -9,6 +9,8 @@ import com.valmiraguiar.core.navigation.Destination
 import com.valmiraguiar.core.navigation.SubGraphDestination
 import com.valmiraguiar.core.navigation.features.ChampionDetailFeatureNavigation
 import com.valmiraguiar.detail.presentation.detail.ChampionDetailScreen
+import com.valmiraguiar.detail.presentation.detail.ChampionDetailViewModel
+import org.koin.androidx.compose.koinViewModel
 
 class ChampionDetailFeatureNavigationImpl : ChampionDetailFeatureNavigation {
     override fun registerGraph(
@@ -19,9 +21,10 @@ class ChampionDetailFeatureNavigationImpl : ChampionDetailFeatureNavigation {
             startDestination = Destination.ChampionDetail(EMPTY_VALUE)
         ) {
             composable<Destination.ChampionDetail> {
+                val vm = koinViewModel<ChampionDetailViewModel>()
                 val championId = it.toRoute<Destination.ChampionDetail>().championId
 
-                ChampionDetailScreen(championId = championId) {
+                ChampionDetailScreen(championId = championId, viewModel = vm) {
                     navHostController.navigateUp()
                 }
             }

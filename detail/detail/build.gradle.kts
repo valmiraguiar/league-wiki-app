@@ -18,7 +18,17 @@ android {
     }
 
     buildTypes {
+        debug {
+            buildConfigField(
+                "String",
+                "BASE_URL_API",
+                "\"https://ddragon.leagueoflegends.com/cdn/\""
+            )
+            buildConfigField("String", "API_CURRENT_PATCH", "\"14.17.1\"")
+            buildConfigField("String", "BASE_SPLASH_URL", "\"https://ddragon.leagueoflegends.com/cdn/img/champion/splash\"")
+        }
         release {
+            buildConfigField("String", "BASE_URL_API", "\"https://localhost/\"")
             isMinifyEnabled = false
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"),
@@ -33,19 +43,19 @@ android {
     kotlinOptions {
         jvmTarget = "11"
     }
+    buildFeatures {
+        compose = true
+        buildConfig = true
+    }
 }
 
 dependencies {
     implementation(project(":core"))
+    implementation(project(":detail:domain"))
 
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)
     implementation(libs.material)
-    implementation(libs.androidx.activity)
-    implementation(libs.androidx.constraintlayout)
-    testImplementation(libs.junit)
-    androidTestImplementation(libs.androidx.junit)
-    androidTestImplementation(libs.androidx.espresso.core)
     implementation(libs.androidx.lifecycle.runtime.ktx)
     implementation(libs.androidx.activity.compose)
     implementation(platform(libs.androidx.compose.bom))
@@ -53,6 +63,13 @@ dependencies {
     implementation(libs.androidx.ui.graphics)
     implementation(libs.androidx.ui.tooling.preview)
     implementation(libs.androidx.material3)
+    testImplementation(libs.junit)
+    androidTestImplementation(libs.androidx.junit)
+    androidTestImplementation(libs.androidx.espresso.core)
+    androidTestImplementation(platform(libs.androidx.compose.bom))
+    androidTestImplementation(libs.androidx.ui.test.junit4)
+    debugImplementation(libs.androidx.ui.tooling)
+    debugImplementation(libs.androidx.ui.test.manifest)
 
     // DI - Koin
     implementation(libs.koin)
