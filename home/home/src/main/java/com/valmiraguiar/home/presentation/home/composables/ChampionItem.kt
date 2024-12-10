@@ -20,15 +20,15 @@ import androidx.compose.ui.graphics.StrokeCap
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.unit.dp
 import coil3.compose.SubcomposeAsyncImage
+import com.valmiraguiar.core.sharedentity.champion.Champion
 import com.valmiraguiar.core.theme.LeagueWikiTheme
 
 @Composable
 fun ChampionItem(
     modifier: Modifier = Modifier,
-    championName: String,
-    championId: String,
-    imgUrl: String,
-    onClickAction: (championId: String) -> Unit
+    champion: Champion,
+    championImgUrl: String,
+    onClickAction: (championData: String) -> Unit
 ) {
     Card(
         modifier = modifier
@@ -36,11 +36,15 @@ fun ChampionItem(
             .height(240.dp),
         shape = LeagueWikiTheme.shape.roundedCorner,
         elevation = CardDefaults.elevatedCardElevation(6.dp),
-        onClick = { onClickAction(championId) }
+        onClick = {
+            onClickAction(
+                champion.id
+            )
+        }
     ) {
         Box(modifier = Modifier.fillMaxWidth()) {
             SubcomposeAsyncImage(
-                model = imgUrl,
+                model = championImgUrl,
                 contentDescription = "Champion image",
                 contentScale = ContentScale.FillBounds,
                 loading = { OnLoadingImage() }
@@ -62,7 +66,7 @@ fun ChampionItem(
                     contentAlignment = Alignment.BottomStart
                 ) {
                     Text(
-                        text = championName,
+                        text = champion.name,
                         color = LeagueWikiTheme.colorScheme.onPrimary,
                         style = LeagueWikiTheme.typography.titleLarge,
                     )

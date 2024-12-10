@@ -80,9 +80,8 @@ fun HomeScreen(
                     items((championListState.value as ChampionListState.Success).championList) { champion ->
                         ChampionItem(
                             modifier = modifier.padding(vertical = 8.dp),
-                            championName = champion.name,
-                            championId = champion.id,
-                            imgUrl = "${BuildConfig.BASE_SPLASH_URL}/${champion.id}_0.jpg",
+                            champion = champion,
+                            championImgUrl = "${BuildConfig.BASE_SPLASH_URL}/${champion.id}_0.jpg",
                             onClickAction = onClickNavigation
                         )
                     }

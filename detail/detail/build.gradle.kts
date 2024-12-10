@@ -56,7 +56,18 @@ dependencies {
 
     // DI - Koin
     implementation(libs.koin)
+    implementation(libs.koin.core)
+    implementation(libs.koin.navigation)
+    implementation(libs.koin.compose)
 
     //navigation
     implementation(libs.androidx.navigation.compose)
+
+    //Retrofit
+    implementation(libs.retrofit)
+    implementation(libs.retrofit.gson.converter)
+
+    // Coil
+    implementation(libs.coil.compose)
+    implementation(libs.coil.network)
 }

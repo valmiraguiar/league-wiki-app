@@ -16,9 +16,7 @@ class ChampionDetailFeatureNavigationImpl : ChampionDetailFeatureNavigation {
         navGraphBuilder: NavGraphBuilder
     ) {
         navGraphBuilder.navigation<SubGraphDestination.ChampionDetail>(
-            startDestination = Destination.ChampionDetail(
-                EMPTY_VALUE
-            )
+            startDestination = Destination.ChampionDetail(EMPTY_VALUE)
         ) {
             composable<Destination.ChampionDetail> {
                 val championId = it.toRoute<Destination.ChampionDetail>().championId
