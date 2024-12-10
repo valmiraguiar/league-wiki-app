@@ -54,7 +54,7 @@ android {
 dependencies {
     implementation(project(":core"))
     implementation(project(":home:home"))
-    implementation(project(":detail"))
+    implementation(project(":detail:detail"))
 
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)
