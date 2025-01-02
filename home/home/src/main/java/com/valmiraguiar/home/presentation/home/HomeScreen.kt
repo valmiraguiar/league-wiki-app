@@ -47,7 +47,7 @@ fun HomeScreen(
                 },
                 colors = TopAppBarDefaults.topAppBarColors(LeagueWikiTheme.colorScheme.secondary),
                 actions = {
-                    SortMenu()
+                    SortMenu(onSort = viewModel::sortChampions)
                 }
             )
         },

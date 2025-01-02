@@ -39,4 +39,30 @@ class HomeViewModel(
             }
         }
     }
+
+    fun sortChampions(sortFrom: ChampionSort) {
+        when (sortFrom) {
+            is ChampionSort.Name -> {
+                when (sortFrom.from) {
+                    SortEnum.ASC -> {
+                        val value = _championListState.value as ChampionListState.Success
+
+                        _championListState.value =
+                            ChampionListState.Success(value.championList.sortedBy {
+                                it.name
+                            })
+                    }
+
+                    SortEnum.DESC -> {
+                        val value = _championListState.value as ChampionListState.Success
+
+                        _championListState.value =
+                            ChampionListState.Success(value.championList.sortedByDescending {
+                                it.name
+                            })
+                    }
+                }
+            }
+        }
+    }
 }

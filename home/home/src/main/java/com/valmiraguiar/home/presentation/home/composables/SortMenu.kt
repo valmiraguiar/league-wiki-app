@@ -17,11 +17,17 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import com.valmiraguiar.core.theme.LeagueWikiTheme
+import com.valmiraguiar.home.R
+import com.valmiraguiar.home.presentation.home.ChampionSort
+import com.valmiraguiar.home.presentation.home.SortEnum
 
 @Composable
-fun SortMenu() {
+fun SortMenu(
+    onSort: (sortFrom: ChampionSort) -> Unit
+) {
     var showMenu by remember { mutableStateOf(false) }
     var expandedSortMenu by remember { mutableStateOf(false) }
 
@@ -29,7 +35,7 @@ fun SortMenu() {
         IconButton(onClick = { showMenu = !showMenu }) {
             Icon(
                 imageVector = Icons.Filled.Menu,
-                contentDescription = "Sort",
+                contentDescription = stringResource(R.string.sort_menu_title),
                 tint = LeagueWikiTheme.colorScheme.onPrimary
             )
         }
@@ -41,15 +47,15 @@ fun SortMenu() {
             Column(
                 modifier = Modifier.padding(8.dp)
             ) {
-                Text("Ordenar por")
+                Text(text = stringResource(R.string.sort_menu_title))
 
                 DropdownMenuItem(
                     onClick = { expandedSortMenu = !expandedSortMenu },
-                    text = { Text("Nome") },
+                    text = { Text(text = stringResource(R.string.sort_menu_name_sort)) },
                     trailingIcon = {
                         Icon(
                             imageVector = Icons.Filled.PlayArrow,
-                            contentDescription = "Sort",
+                            contentDescription = stringResource(R.string.sort_menu_name_sort),
                             tint = LeagueWikiTheme.colorScheme.onBackground,
                         )
                     }
@@ -68,13 +74,21 @@ fun SortMenu() {
                 modifier = Modifier.padding(8.dp)
             ) {
                 DropdownMenuItem(
-                    onClick = { /*TODO*/ },
-                    text = { Text("Crescente") }
+                    onClick = {
+                        onSort(ChampionSort.Name(SortEnum.ASC))
+                        expandedSortMenu = false
+                        showMenu = false
+                    },
+                    text = { Text(text = stringResource(R.string.sort_menu_crescent)) }
                 )
 
                 DropdownMenuItem(
-                    onClick = { /*TODO*/ },
-                    text = { Text("Decrescente") }
+                    onClick = {
+                        onSort(ChampionSort.Name(SortEnum.DESC))
+                        expandedSortMenu = false
+                        showMenu = false
+                    },
+                    text = { Text(text = stringResource(R.string.sort_menu_descending)) }
                 )
             }
         }

@@ -1,3 +1,11 @@
 <resources>
     <string name="app_title">League Wiki</string>
+
+    <!-- Sort Menu -->
+    <string name="sort_menu_title">Ordenar por</string>
+    <string name="sort_menu_ascent">Ordenar por</string>
+    <string name="sort_menu_crescent">Crescente</string>
+    <string name="sort_menu_descending">Decrescente</string>
+    <string name="sort_menu_name_sort">Nome</string>
+
 </resources>
