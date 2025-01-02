@@ -25,6 +25,7 @@ import com.valmiraguiar.core.theme.LeagueWikiTheme
 import com.valmiraguiar.home.BuildConfig
 import com.valmiraguiar.home.R
 import com.valmiraguiar.home.presentation.home.composables.ChampionItem
+import com.valmiraguiar.home.presentation.home.composables.SortMenu
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -35,7 +36,6 @@ fun HomeScreen(
 ) {
     val championListState = viewModel.championListState.collectAsState()
 
-
     Scaffold(
         topBar = {
             TopAppBar(
@@ -45,7 +45,10 @@ fun HomeScreen(
                         color = LeagueWikiTheme.colorScheme.onSecondary
                     )
                 },
-                colors = TopAppBarDefaults.topAppBarColors(LeagueWikiTheme.colorScheme.secondary)
+                colors = TopAppBarDefaults.topAppBarColors(LeagueWikiTheme.colorScheme.secondary),
+                actions = {
+                    SortMenu()
+                }
             )
         },
         modifier = Modifier.background(LeagueWikiTheme.colorScheme.background)

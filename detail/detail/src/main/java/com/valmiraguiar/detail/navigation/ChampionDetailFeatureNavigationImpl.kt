@@ -31,7 +31,7 @@ class ChampionDetailFeatureNavigationImpl : ChampionDetailFeatureNavigation {
         }
     }
 
-    companion object {
+    private companion object {
         private const val EMPTY_VALUE = ""
     }
 }
