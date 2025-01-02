@@ -41,6 +41,10 @@ class HomeViewModel(
     }
 
     fun sortChampions(sortFrom: ChampionSort) {
+        if (_championListState.value !is ChampionListState.Success) {
+            return
+        }
+
         when (sortFrom) {
             is ChampionSort.Name -> {
                 when (sortFrom.from) {

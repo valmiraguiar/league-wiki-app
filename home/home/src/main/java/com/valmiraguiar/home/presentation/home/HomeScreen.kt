@@ -71,7 +71,19 @@ fun HomeScreen(
             }
 
             is ChampionListState.Error -> {
-                Text("ERROR")
+                Box(
+                    modifier = Modifier
+                        .padding(innerPadding)
+                        .fillMaxSize(),
+                    contentAlignment = Alignment.Center
+                ) {
+                    Text(
+                        text = stringResource(R.string.generic_error),
+                        color = LeagueWikiTheme.colorScheme.onBackground,
+                        style = LeagueWikiTheme.typography.titleLarge,
+                    )
+                }
+
             }
 
             is ChampionListState.Success -> {
