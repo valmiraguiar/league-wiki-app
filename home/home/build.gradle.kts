@@ -87,4 +87,25 @@ dependencies {
     // Coil
     implementation(libs.coil.compose)
     implementation(libs.coil.network)
+
+    // Coroutines
+    testImplementation(libs.coroutines.test)
+
+    //Arch
+    testImplementation(libs.androix.arch.core.executor)
+
+    // JUnit Ktx
+    testImplementation(libs.junit.ktx)
+
+    // Core Ktx
+    testImplementation(libs.test.core.ktx)
+
+    // Google Truth
+    testImplementation(libs.google.truth)
+
+    // Mockk
+    testImplementation(libs.mockk)
+
+    // Turbine
+    testImplementation(libs.cash.turbine)
 }
