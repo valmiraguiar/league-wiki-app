@@ -32,7 +32,6 @@ class HomeViewModelTest {
 
     private lateinit var viewModel: HomeViewModel
 
-
     @Before
     fun setup() {
         Dispatchers.setMain(testDispatcher)
@@ -50,6 +49,7 @@ class HomeViewModelTest {
 
     @Test
     fun loadChampions_shouldLoadChampion_whenViewModelHasStarted() = runTest {
+        // ARRANGE
         val mockList = listOf(
             Champion(
                 id = "1",
@@ -61,18 +61,21 @@ class HomeViewModelTest {
         )
         coEvery { championsBusiness.getChampionList() } returns flowOf(mockList)
 
+        // ACT
+
+        // ASSERT
         viewModel.championListState.test {
             var value = awaitItem()
             assertEquals(ChampionListState.Loading, value)
 
             value = awaitItem()
             assertEquals(ChampionListState.Success(mockList), value)
-
         }
     }
 
     @Test
     fun sortChampions_shouldSortListByNameAscending() = runTest {
+        // ARRANGE
         val mockList = listOf(
             Champion(
                 id = "1",
@@ -96,15 +99,22 @@ class HomeViewModelTest {
                 blurb = "3"
             )
         )
-        coEvery { championsBusiness.getChampionList() } returns flowOf(mockList.sortedBy { it.name })
+        coEvery { championsBusiness.getChampionList() } returns flowOf(mockList)
 
         val sortedListByNameAscending = mockList.sortedBy {
             it.name
         }
 
+        // ASSERT
         viewModel.championListState.test {
             var value = awaitItem()
             assertEquals(ChampionListState.Loading, value)
+
+            value = awaitItem()
+            assertEquals(ChampionListState.Success(mockList), value)
+
+            // ACT
+            viewModel.sortChampions(ChampionSort.Name(SortEnum.ASC))
 
             value = awaitItem()
             assertEquals(ChampionListState.Success(sortedListByNameAscending), value)
@@ -113,6 +123,7 @@ class HomeViewModelTest {
 
     @Test
     fun sortChampions_shouldSortListByNameDescending() = runTest {
+        // ARRANGE
         val mockList = listOf(
             Champion(
                 id = "1",
@@ -136,19 +147,25 @@ class HomeViewModelTest {
                 blurb = "3"
             )
         )
-        coEvery { championsBusiness.getChampionList() } returns flowOf(mockList.sortedByDescending { it.name })
+        coEvery { championsBusiness.getChampionList() } returns flowOf(mockList)
 
         val sortedListByNameAscending = mockList.sortedByDescending {
             it.name
         }
 
+        // ASSERT
         viewModel.championListState.test {
             var value = awaitItem()
             assertEquals(ChampionListState.Loading, value)
 
             value = awaitItem()
+            assertEquals(ChampionListState.Success(mockList), value)
+
+            // ACT
+            viewModel.sortChampions(ChampionSort.Name(SortEnum.DESC))
+
+            value = awaitItem()
             assertEquals(ChampionListState.Success(sortedListByNameAscending), value)
         }
     }
-
 }

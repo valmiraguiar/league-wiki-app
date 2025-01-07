@@ -8,7 +8,7 @@ plugins {
 
 android {
     namespace = "com.valmiraguiar.leaguewiki"
-    compileSdk = 34
+    compileSdk = 35
 
     defaultConfig {
         applicationId = "com.valmiraguiar.leaguewiki"
