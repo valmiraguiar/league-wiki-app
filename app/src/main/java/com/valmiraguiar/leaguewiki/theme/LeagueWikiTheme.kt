@@ -8,6 +8,7 @@ import androidx.compose.runtime.CompositionLocalProvider
 import com.valmiraguiar.core.theme.AppColorScheme
 import com.valmiraguiar.core.theme.Black100
 import com.valmiraguiar.core.theme.Blue100
+import com.valmiraguiar.core.theme.Blue200
 import com.valmiraguiar.core.theme.Blue300
 import com.valmiraguiar.core.theme.LocalAppColorScheme
 import com.valmiraguiar.core.theme.LocalAppShape
@@ -25,6 +26,8 @@ private val lightColorScheme = AppColorScheme(
     onPrimary = White100,
     secondary = Blue300,
     onSecondary = White100,
+    tertiary = Blue200,
+    onTertiary = White100
 )
 
 @Composable

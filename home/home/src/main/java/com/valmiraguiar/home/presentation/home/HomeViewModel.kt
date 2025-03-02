@@ -26,13 +26,15 @@ class HomeViewModel(
     }
 
     private fun loadChampions() {
+        _championListState.value = ChampionListState.Success(listOf())
         viewModelScope.launch {
             withContext(coroutineDispatcher) {
                 championsBusiness.getChampionList()
                     .onStart {
                         _championListState.value = ChampionListState.Loading
                     }.catch {
-                        _championListState.value = ChampionListState.Error("${it.message}")
+                        _championListState.value =
+                            ChampionListState.Error("${it.message}")
                     }.collect {
                         _championListState.value = ChampionListState.Success(it)
                     }

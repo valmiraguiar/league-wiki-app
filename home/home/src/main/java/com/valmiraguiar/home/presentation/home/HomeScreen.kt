@@ -1,5 +1,11 @@
 package com.valmiraguiar.home.presentation.home
 
+import androidx.compose.animation.AnimatedVisibility
+import androidx.compose.animation.core.tween
+import androidx.compose.animation.expandHorizontally
+import androidx.compose.animation.fadeIn
+import androidx.compose.animation.fadeOut
+import androidx.compose.animation.shrinkHorizontally
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.PaddingValues
@@ -16,6 +22,10 @@ import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.StrokeCap
@@ -36,19 +46,45 @@ fun HomeScreen(
 ) {
     val championListState = viewModel.championListState.collectAsState()
 
+    var searchBarIsExpandedState by remember { mutableStateOf(false) }
+    var searchText by remember { mutableStateOf("") }
+
     Scaffold(
         topBar = {
             TopAppBar(
                 title = {
-                    Text(
-                        text = stringResource(R.string.app_title),
-                        color = LeagueWikiTheme.colorScheme.onSecondary
-                    )
+                    AnimatedVisibility(
+                        visible = !searchBarIsExpandedState,
+                        enter = expandHorizontally(
+                            animationSpec = tween(
+                                durationMillis = 100
+                            )
+                        ) + fadeIn(),
+                        exit = shrinkHorizontally(
+                            animationSpec = tween(
+                                durationMillis = 100
+                            )
+                        ) + fadeOut()
+                    ) {
+                        Text(
+                            text = stringResource(R.string.app_title),
+                            color = LeagueWikiTheme.colorScheme.onSecondary
+                        )
+                    }
+
                 },
                 colors = TopAppBarDefaults.topAppBarColors(LeagueWikiTheme.colorScheme.secondary),
                 actions = {
-                    SortMenu(onSort = viewModel::sortChampions)
-                }
+                    SortMenu(
+                        onSort = viewModel::sortChampions,
+                        searchBarIsExpandedState = searchBarIsExpandedState,
+                        onChangeSearchBarIsExpandedState = {
+                            searchBarIsExpandedState = !searchBarIsExpandedState
+                        },
+                        searchTextState = searchText,
+                        onSearchTextState = { searchText = it }
+                    )
+                },
             )
         },
         modifier = Modifier.background(LeagueWikiTheme.colorScheme.background)
