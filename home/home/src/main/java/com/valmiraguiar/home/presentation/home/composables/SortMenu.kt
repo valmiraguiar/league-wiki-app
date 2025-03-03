@@ -83,59 +83,59 @@ fun SortMenu(
                         tint = LeagueWikiTheme.colorScheme.onPrimary
                     )
                 }
-            }
-        }
 
-        DropdownMenu(
-            expanded = showMenu,
-            onDismissRequest = { showMenu = false }
-        ) {
-            Column(
-                modifier = Modifier.padding(8.dp)
-            ) {
-                Text(text = stringResource(R.string.sort_menu_title))
+                DropdownMenu(
+                    expanded = showMenu,
+                    onDismissRequest = { showMenu = false }
+                ) {
+                    Column(
+                        modifier = Modifier.padding(8.dp)
+                    ) {
+                        Text(text = stringResource(R.string.sort_menu_title))
 
-                DropdownMenuItem(
-                    onClick = { expandedSortMenu = !expandedSortMenu },
-                    text = { Text(text = stringResource(R.string.sort_menu_name_sort)) },
-                    trailingIcon = {
-                        Icon(
-                            imageVector = Icons.Filled.PlayArrow,
-                            contentDescription = stringResource(R.string.sort_menu_name_sort),
-                            tint = LeagueWikiTheme.colorScheme.onBackground,
+                        DropdownMenuItem(
+                            onClick = { expandedSortMenu = !expandedSortMenu },
+                            text = { Text(text = stringResource(R.string.sort_menu_name_sort)) },
+                            trailingIcon = {
+                                Icon(
+                                    imageVector = Icons.Filled.PlayArrow,
+                                    contentDescription = stringResource(R.string.sort_menu_name_sort),
+                                    tint = LeagueWikiTheme.colorScheme.onBackground,
+                                )
+                            }
                         )
                     }
-                )
-            }
-        }
+                }
 
-        DropdownMenu(
-            expanded = expandedSortMenu,
-            onDismissRequest = {
-                expandedSortMenu = false
-                showMenu = false
-            }
-        ) {
-            Column(
-                modifier = Modifier.padding(8.dp)
-            ) {
-                DropdownMenuItem(
-                    onClick = {
-                        onSort(ChampionSort.Name(SortEnum.ASC))
+                DropdownMenu(
+                    expanded = expandedSortMenu,
+                    onDismissRequest = {
                         expandedSortMenu = false
                         showMenu = false
-                    },
-                    text = { Text(text = stringResource(R.string.sort_menu_crescent)) }
-                )
+                    }
+                ) {
+                    Column(
+                        modifier = Modifier.padding(8.dp)
+                    ) {
+                        DropdownMenuItem(
+                            onClick = {
+                                onSort(ChampionSort.Name(SortEnum.ASC))
+                                expandedSortMenu = false
+                                showMenu = false
+                            },
+                            text = { Text(text = stringResource(R.string.sort_menu_crescent)) }
+                        )
 
-                DropdownMenuItem(
-                    onClick = {
-                        onSort(ChampionSort.Name(SortEnum.DESC))
-                        expandedSortMenu = false
-                        showMenu = false
-                    },
-                    text = { Text(text = stringResource(R.string.sort_menu_descending)) }
-                )
+                        DropdownMenuItem(
+                            onClick = {
+                                onSort(ChampionSort.Name(SortEnum.DESC))
+                                expandedSortMenu = false
+                                showMenu = false
+                            },
+                            text = { Text(text = stringResource(R.string.sort_menu_descending)) }
+                        )
+                    }
+                }
             }
         }
     }

@@ -2,6 +2,7 @@ package com.valmiraguiar.home.presentation.home
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.valmiraguiar.core.sharedentity.champion.Champion
 import com.valmiraguiar.domain.business.ChampionBusiness
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -21,11 +22,10 @@ class HomeViewModel(
         MutableStateFlow(ChampionListState.Loading)
     val championListState: StateFlow<ChampionListState> get() = _championListState
 
-    init {
-        loadChampions()
-    }
+    private val _searchQueryState: MutableStateFlow<String> = MutableStateFlow("")
+    val searchQueryState: StateFlow<String> get() = _searchQueryState
 
-    private fun loadChampions() {
+    fun loadChampions() {
         viewModelScope.launch {
             withContext(coroutineDispatcher) {
                 championsBusiness.getChampionList()
@@ -69,5 +69,16 @@ class HomeViewModel(
                 }
             }
         }
+    }
+
+    fun onSearchQueryChange(query: String) {
+        _searchQueryState.value = query
+    }
+
+    fun getFilteredChampionList(
+        championList: List<Champion>,
+        query: String
+    ): List<Champion> = championList.filter {
+        it.name.contains(query, ignoreCase = true)
     }
 }

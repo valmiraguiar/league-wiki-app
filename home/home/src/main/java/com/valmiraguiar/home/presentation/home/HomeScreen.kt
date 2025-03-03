@@ -21,6 +21,7 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -45,9 +46,18 @@ fun HomeScreen(
     onClickNavigation: (championId: String) -> Unit
 ) {
     val championListState = viewModel.championListState.collectAsState()
+    val searchQueryState = viewModel.searchQueryState.collectAsState()
 
     var searchBarIsExpandedState by remember { mutableStateOf(false) }
-    var searchText by remember { mutableStateOf("") }
+
+    LaunchedEffect(Unit) {
+        viewModel.loadChampions()
+    }
+
+    fun onChampionItemClick(championId: String) {
+        viewModel.onSearchQueryChange("")
+        onClickNavigation(championId)
+    }
 
     Scaffold(
         topBar = {
@@ -81,8 +91,8 @@ fun HomeScreen(
                         onChangeSearchBarIsExpandedState = {
                             searchBarIsExpandedState = !searchBarIsExpandedState
                         },
-                        searchTextState = searchText,
-                        onSearchTextState = { searchText = it }
+                        searchTextState = searchQueryState.value,
+                        onSearchTextState = viewModel::onSearchQueryChange
                     )
                 },
             )
@@ -123,17 +133,21 @@ fun HomeScreen(
             }
 
             is ChampionListState.Success -> {
+                val items = (championListState.value as ChampionListState.Success).championList
+                val championFilteredList =
+                    viewModel.getFilteredChampionList(items, searchQueryState.value)
+
                 LazyColumn(
                     modifier = Modifier.padding(innerPadding),
                     userScrollEnabled = true,
                     contentPadding = PaddingValues(horizontal = 16.dp, vertical = 8.dp)
                 ) {
-                    items((championListState.value as ChampionListState.Success).championList) { champion ->
+                    items(championFilteredList) { champion ->
                         ChampionItem(
                             modifier = modifier.padding(vertical = 8.dp),
                             champion = champion,
                             championImgUrl = "${BuildConfig.BASE_SPLASH_URL}/${champion.id}_0.jpg",
-                            onClickAction = onClickNavigation
+                            onClickAction = ::onChampionItemClick
                         )
                     }
                 }
