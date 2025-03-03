@@ -26,7 +26,6 @@ class HomeViewModel(
     }
 
     private fun loadChampions() {
-        _championListState.value = ChampionListState.Success(listOf())
         viewModelScope.launch {
             withContext(coroutineDispatcher) {
                 championsBusiness.getChampionList()
