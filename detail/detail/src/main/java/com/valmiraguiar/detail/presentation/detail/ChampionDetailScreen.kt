@@ -4,8 +4,10 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.widthIn
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
@@ -23,8 +25,11 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.StrokeCap
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.LocalLifecycleOwner
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
@@ -51,7 +56,7 @@ fun ChampionDetailScreen(
     Scaffold(
         topBar = {
             TopAppBar(
-                title = { Text("League Wiki", color = LeagueWikiTheme.colorScheme.onSecondary) },
+                title = {},
                 colors = TopAppBarDefaults.topAppBarColors(LeagueWikiTheme.colorScheme.secondary),
                 navigationIcon = {
                     IconButton(
@@ -96,7 +101,11 @@ fun ChampionDetailScreen(
 
                 Column(
                     modifier = Modifier
-                        .padding(innerPadding)
+                        .padding(
+                            top = innerPadding.calculateTopPadding(),
+                            start = 0.dp,
+                            end = 0.dp
+                        )
                         .fillMaxSize()
                         .verticalScroll(rememberScrollState())
                 ) {
@@ -104,6 +113,7 @@ fun ChampionDetailScreen(
                         model = ImageRequest.Builder(LocalContext.current)
                             .data("${BuildConfig.BASE_SPLASH_URL}/${championDetailResponse.id}_0.jpg")
                             .crossfade(true).build(),
+                        contentScale = ContentScale.FillBounds,
                         contentDescription = null
                     )
 
