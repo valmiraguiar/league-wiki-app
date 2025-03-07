@@ -28,6 +28,8 @@ class HomeViewModel(
     fun loadChampions() {
         viewModelScope.launch {
             withContext(coroutineDispatcher) {
+                _searchQueryState.value = ""
+
                 championsBusiness.getChampionList()
                     .onStart {
                         _championListState.value = ChampionListState.Loading

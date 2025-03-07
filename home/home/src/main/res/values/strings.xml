@@ -8,5 +8,6 @@
     <string name="sort_menu_crescent">Crescente</string>
     <string name="sort_menu_descending">Decrescente</string>
     <string name="sort_menu_name_sort">Nome</string>
+    <string name="sort_menu_search_bar_placeholder">Digite o nome do campeão</string>
 
 </resources>
